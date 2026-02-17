@@ -168,10 +168,10 @@ public class BehaviourSprayColorInfinite extends BehaviourSprayColor {
 
     @Override
     public boolean onMiddleClick(final MetaBaseItem item, final ItemStack itemStack, final EntityPlayer player) {
-        if (player.isSneaking()) {
-            sendPacket(GTPacketInfiniteSpraycan.Action.LOCK_CAN);
-        } else if (GTMod.clientProxy().shakeLockKey.isPressed()) {
+        if (GTMod.clientProxy().shakeLockKey.isPressed()) {
             sendPacket(GTPacketInfiniteSpraycan.Action.TOGGLE_SHAKE_LOCK);
+        } else if (player.isSneaking()) {
+            sendPacket(GTPacketInfiniteSpraycan.Action.LOCK_CAN);
         } else if (isLocked(itemStack)) {
             displayLockedMessage();
         } else {
