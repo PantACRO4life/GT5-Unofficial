@@ -75,13 +75,16 @@ tasks.assemble.configure {
     dependsOn(functionalTest.jarTaskName)
 }
 
-// Run tests in the default runServer/runClient configurations
+// Run tests in the default runServer/runClient configurations.
+// Use main runtimeClasspath + functionalTest JAR only (not functionalTest.runtimeClasspath) so test-only
+// deps (JUnit, Antlr, etc.) are not on the run classpath. That avoids FML scanning them as mods and
+// failing on module-info.class / ASM, and keeps mod discovery to actual mod JARs (e.g. IC2).
 tasks.named<RunMinecraftTask>("runServer").configure {
     dependsOn(functionalTest.jarTaskName)
-    classpath(configurations.named(functionalTest.runtimeClasspathConfigurationName), tasks.named(functionalTest.jarTaskName))
+    classpath(configurations.named("runtimeClasspath"), tasks.named(functionalTest.jarTaskName))
 }
 
 tasks.named<RunMinecraftTask>("runClient").configure {
     dependsOn(functionalTest.jarTaskName)
-    classpath(configurations.named(functionalTest.runtimeClasspathConfigurationName), tasks.named(functionalTest.jarTaskName))
+    classpath(configurations.named("runtimeClasspath"), tasks.named(functionalTest.jarTaskName))
 }

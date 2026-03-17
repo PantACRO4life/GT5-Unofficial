@@ -3,6 +3,7 @@ package gregtech.common.inventory;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.gtnewhorizon.gtnhlib.item.AbstractInventoryIterator;
 import com.gtnewhorizon.gtnhlib.item.ImmutableItemStack;
@@ -15,6 +16,11 @@ public class AEInventoryItemIO extends SimpleItemIO {
 
     public AEInventoryItemIO(AEInventory inventory) {
         this.inventory = inventory;
+    }
+
+    @Override
+    public @Nullable InventoryIterator simulatedSinkIterator() {
+        return null;
     }
 
     @Override
